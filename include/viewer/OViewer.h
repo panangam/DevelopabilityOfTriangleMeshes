@@ -38,6 +38,8 @@
 #include <chrono>
 #include <thread>
 
+#include <GL/glew.h>
+
 #ifdef __APPLE__
 #   include <OpenGL/gl3.h>
 #   define __gl_h_ /* Prevent inclusion of the old gl.h */

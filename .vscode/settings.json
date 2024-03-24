@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "*.tmpl": "html",
+        "limits": "cpp",
+        "*.txt": "cpp",
+        "alignedvector3": "cpp",
+        "fft": "cpp",
+        "sparse": "cpp",
+        "core": "cpp"
+    },
+    "cmake.configureOnOpen": true
+}

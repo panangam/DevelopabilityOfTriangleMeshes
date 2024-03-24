@@ -522,7 +522,7 @@ IGL_INLINE void OViewer::drawing()
         
         GLenum error = glGetError();
         if(error != GL_NO_ERROR && error != GL_INVALID_VALUE)
-            std::cout << "There was an OpenGL error while drawing faces. The error is: " << gluErrorString(error) << "." << std::endl;
+            std::cout << "There was an OpenGL error while drawing faces. The error is: " << error << "." << std::endl;
         
         glDisable(GL_POLYGON_OFFSET_FILL);
         
@@ -559,7 +559,7 @@ IGL_INLINE void OViewer::drawing()
         glDrawElements(GL_LINES, m_E_mod.size(), GL_UNSIGNED_INT, 0);
         GLenum error = glGetError();
         if(error != GL_NO_ERROR)
-            std::cout << "There was an OpenGL error while drawing lines. The error is: " << gluErrorString(error) << "." << std::endl;
+            std::cout << "There was an OpenGL error while drawing lines. The error is: " << error << "." << std::endl;
         
         if(linetranspEnabled)
             glDisable(GL_BLEND);
@@ -592,7 +592,7 @@ IGL_INLINE void OViewer::drawing()
     glDrawArrays(GL_POINTS, 0, markedPoints.size());
     GLenum error = glGetError();
     if(error != GL_NO_ERROR /*&& error != GL_INVALID_VALUE*/)
-        std::cout << "There was an OpenGL error while drawing points. The error is: " << gluErrorString(error) << "." << std::endl;
+        std::cout << "There was an OpenGL error while drawing points. The error is: " << error << "." << std::endl;
     
     glDisable(GL_BLEND);
     glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
@@ -631,7 +631,7 @@ IGL_INLINE void OViewer::draw_plots()
     glDrawArrays(GL_TRIANGLES, 0, 6);
     GLenum error = glGetError();
     if(error != GL_NO_ERROR)
-        std::cout << "There was an OpenGL error while drawing the plot BG. The error is: " << gluErrorString(error) << "." << std::endl;
+        std::cout << "There was an OpenGL error while drawing the plot BG. The error is: " << error << "." << std::endl;
     
     glDisable(GL_POLYGON_OFFSET_FILL);
     glDisableVertexAttribArray(position_id_plot);
@@ -659,7 +659,7 @@ IGL_INLINE void OViewer::draw_plots()
         
         glDrawArrays(GL_LINE_STRIP, offset, plotLines[i].size());
         if(error != GL_NO_ERROR)
-            std::cout << "There was an OpenGL error while drawing line " << i << ". The error is: " << gluErrorString(error) << "." << std::endl;
+            std::cout << "There was an OpenGL error while drawing line " << i << ". The error is: " << error << "." << std::endl;
         
         offset += plotLines[i].size();
     }
@@ -957,6 +957,14 @@ IGL_INLINE int OViewer::launch()
     
     glfwMakeContextCurrent(window);
     glEnable(GL_MULTISAMPLE);
+
+    glewExperimental = GL_TRUE; 
+    auto glewError = glewInit();
+    if(glewError != GLEW_OK)
+    {
+        std::cerr << "Warning: Failed to initialize GLEW\n" << glewError << std::endl;
+        return EXIT_FAILURE;
+    }
     
     int major, minor, rev;
     major = glfwGetWindowAttrib(window, GLFW_CONTEXT_VERSION_MAJOR);
