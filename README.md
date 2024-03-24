@@ -4,21 +4,31 @@ More info on the paper can be found on its project page, http://www.cs.columbia.
 
 
 This code is meant to run on macOS 10.13, with Xcode and the Developer tools installed.
+UPDATE 2024/03/24: Now compiles on Linux.
+For Linux, install dependencies
+
+```sh
+sudo apt install libgl1-mesa-dev libglu1-mesa-dev
+```
 
 This code is built with cmake.
 Go to the code directory, and then:
 
+```sh
 mkdir build
 cd build
 cmake ..
 make
+```
 
 Options can be adjusted with ccmake in the build directory.
+
 Be sure to set CMAKE_BUILD_TYPE to Debug or Release respectively.
 
-
 The application is run in the build directory by issuing:
+```sh
 ./applications/main/main path_to_mesh.obj
+```
 
 There are multiple keypress options to influence the different flows.
 A few are listed here:
